@@ -25,11 +25,20 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/investigador', [InvestigadorController::class, 'index'])->middleware(['auth','gestor.director'])->name('investigador.index');
-Route::get('/investigador/create', [InvestigadorController::class, 'create'])->middleware(['auth','gestor.director'])->name('investigador.create');
+Route::get('/investigador/create', [InvestigadorController::class, 'showCreateForm'])->middleware(['auth','gestor.director'])->name('investigador.create');
 Route::get('/investigador/delete', [InvestigadorController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('investigador.delete');
+Route::get('/investigador/edit', [InvestigadorController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('investigador.edit');
+Route::match(['GET', 'POST'], '/investigador/buscar', [InvestigadorController::class, 'search'])->middleware(['auth','gestor.director'])->name('investigador.search');
+Route::match(['GET', 'POST'], '/investigador/buscar', [InvestigadorController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('investigador.pdf');
+
+
+
+
 
 Route::post('/investigador/store', [InvestigadorController::class, 'store'])->middleware(['auth','gestor.director'])->name('investigador.store');
-Route::post('/investigador/delete', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
+Route::delete('/investigador/delete', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
+Route::put('/investigador/update', [InvestigadorController::class, 'update'])->name('investigador.update');
+
 
 
 Route::get('/projecte', [ProjecteController::class, 'index'])->middleware(['auth','gestor.director'])->name('projecte.index');

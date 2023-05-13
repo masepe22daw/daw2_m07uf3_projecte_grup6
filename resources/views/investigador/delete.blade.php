@@ -2,7 +2,7 @@
     @csrf
 
     <div>
-        <label for="passaport">Pasaporte:</label>
+        <label for="passaport">Passaport:</label>
         <input type="text" name="passaport" id="passaport" required>
     </div>
 
@@ -15,6 +15,6 @@
             {{ session('success') }}
         </div>
 @endif
-    <div>
-        <a href="{{ route('investigador.index') }}" class="btn btn-secondary">Volver</a>
-    </div>
+<div>
+    <a href="{{ route('investigador.index') }}" class="btn btn-secondary"><button>Torna enrere</button></a>
+</div>
