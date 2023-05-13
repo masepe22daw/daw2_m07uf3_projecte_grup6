@@ -1,3 +1,4 @@
+<title>Menu principal</title>
 @if (Auth::check())
     <p>Benvingut al menu principal, {{ Auth::user()->name }}</p>
 @else

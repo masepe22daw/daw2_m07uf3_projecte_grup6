@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Investigador;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 class InvestigadorController extends Controller
@@ -15,64 +16,66 @@ class InvestigadorController extends Controller
 }
  
 
-    public function create()
-    {
-        return view('investigador.create');
-    }
+public function create()
+{
+    return view('investigador.create');
+}
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:investigadors,email',
-            // agregar más validaciones si se requiere
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'Passaport' => 'required|unique:INVESTIGADORS,Passaport',
+        'NomCognoms' => 'required',
+        'Email' => 'required|email|unique:INVESTIGADORS,Email',
+    ]);
 
-        $investigador = new Investigador;
-        $investigador->name = $request->name;
-        $investigador->email = $request->email;
-        // agregar más campos si se requiere
-        $investigador->save();
+    $investigador = new Investigador();
+    $investigador->Passaport = $request->input('Passaport');
+    $investigador->CodiAssegMèdica = $request->input('CodiAssegMèdica');
+    $investigador->NomCognoms = $request->input('NomCognoms');
+    $investigador->Especialitat = $request->input('Especialitat');
+    $investigador->Telefon = $request->input('Telefon');
+    $investigador->Adreça = $request->input('Adreça');
+    $investigador->Ciutat = $request->input('Ciutat');
+    $investigador->País = $request->input('País');
+    $investigador->Email = $request->input('Email');
+    $investigador->Titulacio = $request->input('Titulacio');
+    $investigador->save();
 
-        return redirect()->route('investigador.menu')->with('success', 'Investigador creado exitosamente.');
-    }
+    return redirect()->route('investigador.create')->with('success', 'Investigador creado correctamente.');
+}
 
-    public function edit($id)
-    {
-        $investigador = Investigador::findOrFail($id);
-        return view('investigador.edit', compact('investigador'));
-    }
+public function showDeleteForm()
+{
+    return view('investigador.delete');
+}
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:investigadors,email,'.$id,
-            // agregar más validaciones si se requiere
-        ]);
+public function destroy(Request $request)
+{
+    $request->validate([
+        'passaport' => 'required|exists:INVESTIGADORS,Passaport',
+    ]);
 
-        $investigador = Investigador::findOrFail($id);
-        $investigador->name = $request->name;
-        $investigador->email = $request->email;
-        // agregar más campos si se requiere
-        $investigador->save();
+    $passaport = $request->input('passaport');
 
-        return redirect()->route('investigador.menu')->with('success', 'Investigador actualizado exitosamente.');
-    }
+    DB::beginTransaction();
 
-    public function destroy($id)
-    {
-        $investigador = Investigador::findOrFail($id);
+    try {
+        $investigador = Investigador::findOrFail($passaport);
         $investigador->delete();
 
-        return redirect()->route('investigador.menu')->with('success', 'Investigador eliminado exitosamente.');
-    }
+        // Opcional: También puedes eliminar las entradas asociadas en la tabla intermedia si es necesario.
+        DB::table('PARTICIPA')->where('Passaport', $passaport)->delete();
 
-    public function show($id)
-    {
-        $investigador = Investigador::findOrFail($id);
-        return view('investigador.show', compact('investigador'));
-    }
+        DB::commit();
 
-  
+        return redirect()->route('investigador.delete')->with('success', 'Investigador eliminado correctamente.');
+    } catch (\Exception $e) {
+        DB::rollback();
+
+        return redirect()->back()->with('error', 'Error al eliminar el investigador.');
+    }
+}
+
+
 }

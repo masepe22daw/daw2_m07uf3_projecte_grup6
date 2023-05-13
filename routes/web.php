@@ -26,9 +26,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/investigador', [InvestigadorController::class, 'index'])->middleware(['auth','gestor.director'])->name('investigador.index');
 Route::get('/investigador/create', [InvestigadorController::class, 'create'])->middleware(['auth','gestor.director'])->name('investigador.create');
-Route::get('/investigador/edit', [InvestigadorController::class, 'edit'])->middleware(['auth','gestor.director'])->name('investigador.edit');
-Route::get('/investigador/delete', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
+Route::get('/investigador/delete', [InvestigadorController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('investigador.delete');
 
+Route::post('/investigador/store', [InvestigadorController::class, 'store'])->middleware(['auth','gestor.director'])->name('investigador.store');
+Route::post('/investigador/delete', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
 
 
 Route::get('/projecte', [ProjecteController::class, 'index'])->middleware(['auth','gestor.director'])->name('projecte.index');

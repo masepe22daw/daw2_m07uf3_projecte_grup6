@@ -52,10 +52,4 @@ CREATE TABLE users (
 );
 
 
-INSERT INTO users (name, email, password, Tipus, DarreraHoraEntrada, DarreraHoraSortida)
-VALUES ('Marc', 'hola@mail.com', '12345678', 'gestor', NULL, NULL);
-
-INSERT INTO users (name, email, password, Tipus, DarreraHoraEntrada, DarreraHoraSortida)
-VALUES ('Pere', 'adeu@mail.com', '12345678', 'director', NULL, NULL);
-
 GRANT ALL PRIVILEGES ON universitat.* TO 'admin-clot'@'localhost' IDENTIFIED BY '1234';
