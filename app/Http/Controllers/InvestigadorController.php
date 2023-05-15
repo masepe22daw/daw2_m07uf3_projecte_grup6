@@ -136,36 +136,40 @@ public function search(Request $request)
             return view('investigador.search');
         }
     }
-
+  
     public function generarPDF($passaport)
 {
-    $request->validate([
-        'passaport' => 'required',
-    ]);
+    if ($request->isMethod('post')) {
+        $request->validate([
+            'passaport' => 'required',
+        ]);
 
-    try {
-        $passaport = $request->input('passaport');
-        $investigador = Investigador::findOrFail($passaport);
+        try {
+            $passaport = $request->input('passaport');
+            $investigador = Investigador::findOrFail($passaport);
 
-        // Crea una instancia de Dompdf
-        $dompdf = new Dompdf();
+            // Crea una instancia de Dompdf
+            $dompdf = new Dompdf();
 
-        // Renderiza la vista del PDF
-        $pdfContent = view('investigador.pdf', compact('investigador'))->render();
+            // Renderiza la vista del PDF
+            $pdfContent = view('investigador.pdf', compact('investigador'))->render();
 
-        // Carga el contenido HTML en Dompdf
-        $dompdf->loadHtml($pdfContent);
+            // Carga el contenido HTML en Dompdf
+            $dompdf->loadHtml($pdfContent);
 
-        // Renderiza el PDF
-        $dompdf->render();
+            // Renderiza el PDF
+            $dompdf->render();
 
-        // Genera el nombre del archivo PDF
-        $filename = 'investigador_' . $investigador->Passaport . '.pdf';
+            // Genera el nombre del archivo PDF
+            $filename = 'investigador_' . $investigador->Passaport . '.pdf';
 
-        // Descarga el PDF al navegador del usuario
-        return $dompdf->stream($filename);
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Error al generar el PDF del investigador.');
+            // Descarga el PDF al navegador del usuario
+            return $dompdf->stream($filename);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al generar el PDF del investigador.');
+        }
+    }else{
+        return view('investigador.pdf');
     }
 }
 
