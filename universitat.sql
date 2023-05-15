@@ -1,4 +1,6 @@
 CREATE DATABASE IF NOT EXISTS universitat;
+CREATE USER 'admin-clot'@'localhost' IDENTIFIED BY '1234';
+
 USE universitat;
 
 CREATE TABLE PROJECTES (
