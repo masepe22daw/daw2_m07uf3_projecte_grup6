@@ -17,18 +17,18 @@ use App\Http\Controllers\UsuarisController;
 |
 */
 
-// Rutas públicas
+// Rutes públicas
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Rutas protegidas por autenticación
+// Rutes protegidas por autenticación
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Rutas per el controlador InvestigadorController
+    // Rutes per el controlador InvestigadorController
     Route::middleware(['gestor.director'])->group(function () {
         Route::get('/investigador', [InvestigadorController::class, 'index'])->name('investigador.index');
         Route::get('/investigador/create', [InvestigadorController::class, 'showCreateForm'])->name('investigador.create');
@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/investigador/update', [InvestigadorController::class, 'update'])->name('investigador.update');
     });
 
-    // Rutas per el controlador ProjecteController
+    // Rutes per el controlador ProjecteController
     Route::middleware(['gestor.director'])->group(function () {
         Route::get('/projecte', [ProjecteController::class, 'index'])->name('projecte.index');
         Route::get('/projecte/create', [ProjecteController::class, 'showCreateForm'])->name('projecte.create');
@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/projecte/update', [ProjecteController::class, 'update'])->name('projecte.update');
     });
 
-    // Rutas per el controlador ParticipaController
+    // Rutes per el controlador ParticipaController
 Route::middleware(['gestor.director'])->group(function () {
     Route::get('/participa', [ParticipaController::class, 'index'])->name('participa.index');
     Route::get('/participa/create', [ParticipaController::class, 'showCreateForm'])->name('participa.create');
@@ -70,7 +70,7 @@ Route::middleware(['gestor.director'])->group(function () {
     Route::put('/participa/update', [ParticipaController::class, 'update'])->name('participa.update');
 });
 
-    // Rutas per el controlador UsuarisController
+    // Rutes per el controlador UsuarisController
 Route::middleware(['director'])->group(function () {
     Route::get('/usuaris', [UsuarisController::class, 'index'])->name('usuaris.index');
     Route::get('/usuaris/create', [UsuarisController::class, 'showCreateForm'])->name('usuaris.create');
