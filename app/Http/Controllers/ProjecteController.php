@@ -79,4 +79,32 @@ public function destroy(Request $request)
     }
 }
   
+public function showUpdateForm()
+{
+    return view('projecte.edit');
+}
+
+public function update(Request $request)
+{
+    $request->validate([
+        'CodiProj' => 'required|exists:PROJECTES,CodiProj',
+        'campo' => 'required',
+        'valor' => 'required',
+    ]);
+
+    try {
+        $CodiProj = $request->input('CodiProj');
+        $campo = $request->input('campo');
+        $valor = $request->input('valor');
+
+        $projecte = Projecte::findOrFail($CodiProj);
+        $projecte->$campo = $valor;
+        $projecte->save();
+
+        return redirect()->route('projecte.edit', $projecte->CodiProj)->with('success', 'Proyecto actualizado correctamente.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Error al actualizar el proyecto.');
+    }
+}
+
 }

@@ -16,5 +16,5 @@
         </div>
 @endif
 <div>
-    <a href="{{ route('investigador.index') }}" class="btn btn-secondary"><button>Torna enrere</button></a>
+    <a href="{{ route('projecte.index') }}" class="btn btn-secondary"><button>Torna enrere</button></a>
 </div>
