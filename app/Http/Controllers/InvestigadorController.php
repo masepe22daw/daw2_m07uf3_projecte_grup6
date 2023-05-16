@@ -65,16 +65,19 @@ public function destroy(Request $request)
         $investigador = Investigador::findOrFail($passaport);
         $investigador->delete();
 
-        // Opcional: También puedes eliminar las entradas asociadas en la tabla intermedia si es necesario.
-        DB::table('PARTICIPA')->where('Passaport', $passaport)->delete();
+        $participaExists = DB::table('PARTICIPA')->where('passaport', $passaport)->exists();
+
+        if ($participaExists) {
+            DB::table('PARTICIPA')->where('passaport', $passaport)->delete();
+        }
 
         DB::commit();
 
-        return redirect()->route('investigador.delete')->with('success', 'Investigador eliminat correctament.');
+        return redirect()->route('projecte.delete')->with('success', 'Proyecto eliminado correctamente.');
     } catch (\Exception $e) {
         DB::rollback();
 
-        return redirect()->back()->with('error', 'Error al eliminar el investigador.');
+        return redirect()->back()->with('error', 'Error al eliminar el proyecto.');
     }
 }
 

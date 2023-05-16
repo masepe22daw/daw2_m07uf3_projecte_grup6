@@ -53,5 +53,10 @@ CREATE TABLE users (
   DarreraHoraSortida DATETIME
 );
 
+INSERT INTO users (name, email, password, Tipus, DarreraHoraEntrada, DarreraHoraSortida)
+VALUES ('hola', 'hola@example.com', '$2y$10$kRG68HiEB/aaHScW82tYZ.GoXWkhlJiik27gA4Si3RZSs8pXogyiW', 'gestor', '2023-05-16 09:00:00', '2023-05-16 18:00:00');
+
+INSERT INTO users (name, email, password, Tipus, DarreraHoraEntrada, DarreraHoraSortida)
+VALUES ('adeu', 'adeu@example.com', '$2y$10$kRG68HiEB/aaHScW82tYZ.GoXWkhlJiik27gA4Si3RZSs8pXogyiW', 'director', '2023-05-18 09:00:00', '2023-05-18 18:00:00');
 
 GRANT ALL PRIVILEGES ON universitat.* TO 'admin-clot'@'localhost' IDENTIFIED BY '1234';
