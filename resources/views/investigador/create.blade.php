@@ -113,6 +113,5 @@
 
 <div>
     <a href="{{ route('investigador.index') }}" class="btn btn-secondary">Torna enrere</a>
-
 </div>
 </div>

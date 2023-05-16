@@ -41,6 +41,6 @@
 @endif
 
 <div>
-    <a href="{{ route('investigador.index') }}" class="btn btn-primary"><button>Torna enrere</button></a>
+    <a href="{{ route('investigador.index') }}" class="btn btn-secondary">Torna enrere</a>
 </div>
     </div>
