@@ -65,6 +65,7 @@ Route::get('/usuaris/delete', [UsuarisController::class, 'showDeleteForm'])->mid
 
 
 Route::post('/usuaris/store', [UsuarisController::class, 'store'])->middleware(['auth','director'])->name('usuaris.store');
+Route::delete('/usuaris/destroy', [UsuarisController::class, 'destroy'])->middleware(['auth','director'])->name('usuaris.destroy');
 
 
 require __DIR__.'/auth.php';

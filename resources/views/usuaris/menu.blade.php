@@ -6,7 +6,7 @@
 
 <ul>
     <a href="{{ route('usuaris.create') }}">Afegir un nou usuari</a><br/>
-
+    <a href="{{ route('usuaris.delete') }}">Esborrar un  usuari</a><br/>
 </ul>
 
 <div>
