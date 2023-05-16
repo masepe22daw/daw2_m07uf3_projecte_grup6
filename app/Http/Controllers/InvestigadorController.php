@@ -112,10 +112,7 @@ public function update(Request $request)
     }
 }
 
-public function showSearchForm()
-{
-    return view('investigador.search');
-}
+
 
 public function search(Request $request)
     {

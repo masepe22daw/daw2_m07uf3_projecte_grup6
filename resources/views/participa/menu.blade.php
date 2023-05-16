@@ -7,7 +7,7 @@
 <ul>
     <a href="{{ route('participa.create') }}">Afegir un nou registre a participa</a><br/>
     <a href="{{ route('participa.delete') }}">Elimina  un registre de  participa</a><br/>
-
+    <a href="{{ route('participa.edit') }}">Modifica  un registre de  participa</a><br/>
 </ul>
 
 <div>

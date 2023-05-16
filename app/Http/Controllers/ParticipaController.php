@@ -53,16 +53,16 @@ public function destroy(Request $request)
         'CodiProj' => 'required',
     ]);
 
-    // Obtener las claves primarias del formulario
+   
     $Passaport = $request->input('Passaport');
     $CodiProj = $request->input('CodiProj');
 
-    // Buscar y eliminar el registro en la base de datos
+   
     $result = Participa::where('Passaport', $Passaport)
         ->where('CodiProj', $CodiProj)
         ->delete();
 
-    // Verificar si se eliminó el registro correctamente
+   
     if ($result) {
         return redirect()->route('participa.delete')->with('success', 'Registro borrado exitosamente.');
     } else {
@@ -71,7 +71,59 @@ public function destroy(Request $request)
 }
 
 
+public function showUpdateForm()
+{
+    return view('participa.edit');
+}
 
+public function update(Request $request)
+{
+    $request->validate([
+        'Passaport' => 'required',
+        'CodiProj' => 'required',
+        'campo' => 'required',
+        'valor' => 'required',
+    ]);
 
+    $Passaport = $request->input('Passaport');
+    $CodiProj = $request->input('CodiProj');
+    $campo = $request->input('campo');
+    $valor = $request->input('valor');
+
+    $result = Participa::where('Passaport', $Passaport)
+        ->where('CodiProj', $CodiProj)
+        ->update([$campo => $valor]);
+
+    if ($result) {
+        return redirect()->route('participa.edit')->with('success', 'Registro modificado exitosamente.');
+    } else {
+        return redirect()->route('participa.edit')->with('error', 'No se encontró el registro.');
+    }
+}
+
+public function search(Request $request)
+{
+    if ($request->isMethod('post')) {
+        $request->validate([
+            'Passaport' => 'required',
+            'CodiProj' => 'required',
+        ]);
+
+        try {
+            $Passaport = $request->input('Passaport');
+            $CodiProj = $request->input('CodiProj');
+
+            $participa = Participa::where('Passaport', $Passaport)
+                ->where('CodiProj', $CodiProj)
+                ->firstOrFail();
+
+            return view('participa.search', compact('participa'));
+        } catch (\Exception $e) {
+            return view('participa.search')->with('error', 'No se encontró ningún registro con las claves proporcionadas.');
+        }
+    } else {
+        return view('participa.search');
+    }
+}
 
 }

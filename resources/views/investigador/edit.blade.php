@@ -4,7 +4,7 @@
 
     <div>
         <label for="passaport">Passaport:</label>
-        <input type="text" name="passaport" id="passaport" value="{{ old('passaport') }}">
+        <input type="text" name="passaport" id="passaport">
     </div>
 
     <div>
@@ -25,7 +25,7 @@
 
     <div>
         <label for="valor">Nuevo valor:</label>
-        <input type="text" name="valor" id="valor" value="{{ old('valor') }}">
+        <input type="text" name="valor" id="valor" >
     </div>
 
     <div>
