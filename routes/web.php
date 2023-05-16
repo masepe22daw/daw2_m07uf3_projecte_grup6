@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvestigadorController;
 use App\Http\Controllers\ProjecteController;
 use App\Http\Controllers\ParticipaController;
+use App\Http\Controllers\UsuarisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,8 +59,12 @@ Route::delete('/participa/destroy', [ParticipaController::class, 'destroy'])->mi
 Route::put('/participa/update', [ParticipaController::class, 'update'])->middleware(['auth','gestor.director'])->name('participa.update');
 
 
-Route::get('/usuaris', [ParticipaController::class, 'index'])->middleware(['auth','gestor.director'])->name('usuaris.index');
+Route::get('/usuaris', [UsuarisController::class, 'index'])->middleware(['auth','director'])->name('usuaris.index');
+Route::get('/usuaris/create', [UsuarisController::class, 'showCreateForm'])->middleware(['auth','director'])->name('usuaris.create');
+Route::get('/usuaris/delete', [UsuarisController::class, 'showDeleteForm'])->middleware(['auth','director'])->name('usuaris.delete');
 
+
+Route::post('/usuaris/store', [UsuarisController::class, 'store'])->middleware(['auth','director'])->name('usuaris.store');
 
 
 require __DIR__.'/auth.php';

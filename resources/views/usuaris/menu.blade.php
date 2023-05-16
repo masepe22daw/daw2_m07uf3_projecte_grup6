@@ -5,8 +5,10 @@
 @endif
 
 <ul>
-    <a href="{{ route('usuaris.create') }}">Agregar un nuevo usuaris</a><br/>
-    <a href="{{ route('usuaris.search') }}">Ver todos los usuaris</a><br/>
-    <a href="{{ route('usuaris.edit')}}">Editar información del usuaris</a><br/>
-    <a href="{{ route('usuaris.destroy')}}">Eliminar usuaris</a><br/>
+    <a href="{{ route('usuaris.create') }}">Afegir un nou usuari</a><br/>
+
 </ul>
+
+<div>
+    <a href="{{ route('dashboard') }}" class="btn btn-secondary"><button>Torna enrere</button></a>
+</div>

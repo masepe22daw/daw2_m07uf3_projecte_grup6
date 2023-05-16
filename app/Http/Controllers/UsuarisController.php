@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Usuaris;
-use PDF;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 
 class UsuarisController extends Controller
 {
@@ -14,65 +15,33 @@ class UsuarisController extends Controller
     return view('usuaris.menu');
 }
  
+public function showCreateForm()
+{
+    return view('usuaris.create');
+}
 
-    public function create()
-    {
-        return view('usuaris.create');
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6',
+        'Tipus' => 'required|in:gestor,director',
+    ]);
+    try{
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->Tipus = $request->input('Tipus');
+        $user->save();
+    
+        return redirect()->route('usuaris.create')->with('success', 'Usuario creado exitosamente.');
+    }catch(\Exception $e){
+        return redirect()->back()->with('error', 'Error al afegir el usuari.');
     }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:usuariss,email',
-            // agregar más validaciones si se requiere
-        ]);
-
-        $usuaris = new Usuaris;
-        $usuaris->name = $request->name;
-        $usuaris->email = $request->email;
-        // agregar más campos si se requiere
-        $usuaris->save();
-
-        return redirect()->route('usuaris.menu')->with('success', 'usuaris creado exitosamente.');
-    }
-
-    public function edit($id)
-    {
-        $usuaris = usuaris::findOrFail($id);
-        return view('usuaris.edit', compact('usuaris'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:usuariss,email,'.$id,
-            // agregar más validaciones si se requiere
-        ]);
-
-        $usuaris = Usuaris::findOrFail($id);
-        $usuaris->name = $request->name;
-        $usuaris->email = $request->email;
-        // agregar más campos si se requiere
-        $usuaris->save();
-
-        return redirect()->route('usuaris.menu')->with('success', 'usuaris actualizado exitosamente.');
-    }
-
-    public function destroy($id)
-    {
-        $usuaris = Usuaris::findOrFail($id);
-        $usuaris->delete();
-
-        return redirect()->route('usuaris.menu')->with('success', 'usuaris eliminado exitosamente.');
-    }
-
-    public function show($id)
-    {
-        $usuaris = Usuaris::findOrFail($id);
-        return view('usuaris.show', compact('usuaris'));
-    }
+    
+}
 
   
 }
