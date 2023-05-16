@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Investigador;
 use Illuminate\Support\Facades\DB;
-use Dompdf\Dompdf;
-
 
 class InvestigadorController extends Controller
 {
@@ -140,40 +138,7 @@ public function search(Request $request)
         }
     }
   
-    public function generarPDF($passaport)
-{
-    if ($request->isMethod('post')) {
-        $request->validate([
-            'passaport' => 'required',
-        ]);
+    
 
-        try {
-            $passaport = $request->input('passaport');
-            $investigador = Investigador::findOrFail($passaport);
-
-            // Crea una instancia de Dompdf
-            $dompdf = new Dompdf();
-
-            // Renderiza la vista del PDF
-            $pdfContent = view('investigador.pdf', compact('investigador'))->render();
-
-            // Carga el contenido HTML en Dompdf
-            $dompdf->loadHtml($pdfContent);
-
-            // Renderiza el PDF
-            $dompdf->render();
-
-            // Genera el nombre del archivo PDF
-            $filename = 'investigador_' . $investigador->Passaport . '.pdf';
-
-            // Descarga el PDF al navegador del usuario
-            return $dompdf->stream($filename);
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al generar el PDF del investigador.');
-        }
-    }else{
-        return view('investigador.pdf');
-    }
-}
 
 }
