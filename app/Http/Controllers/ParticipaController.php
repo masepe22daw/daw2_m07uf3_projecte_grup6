@@ -158,7 +158,7 @@ public function generarPDF(Request $request)
         $dompdf->loadHtml($html);
         $dompdf->render();
 
-        $dompdf->stream('participacion.pdf');
+        $dompdf->stream('participacio.pdf');
     } else {
         return back()->with('error', 'No se encontraron datos de la participación');
     }

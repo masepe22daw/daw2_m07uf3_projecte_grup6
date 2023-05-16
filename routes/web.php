@@ -72,7 +72,8 @@ Route::get('/usuaris/create', [UsuarisController::class, 'showCreateForm'])->mid
 Route::get('/usuaris/delete', [UsuarisController::class, 'showDeleteForm'])->middleware(['auth','director'])->name('usuaris.delete');
 Route::get('/usuaris/edit', [UsuarisController::class, 'showUpdateForm'])->middleware(['auth','director'])->name('usuaris.edit');
 Route::match(['GET', 'POST'], '/usuaris/buscar', [UsuarisController::class, 'search'])->middleware(['auth','director'])->name('usuaris.search');
-
+Route::get('/usuaris/pdf-form', [UsuarisController::class, 'showPdfForm'])->middleware(['auth','director'])->name('usuaris.pdf-form');
+Route::post('/usuaris/generar-pdf', [UsuarisController::class, 'generarPDF'])->middleware(['auth','director'])->name('usuaris.generar-pdf');
 
 Route::post('/usuaris/store', [UsuarisController::class, 'store'])->middleware(['auth','director'])->name('usuaris.store');
 Route::delete('/usuaris/destroy', [UsuarisController::class, 'destroy'])->middleware(['auth','director'])->name('usuaris.destroy');

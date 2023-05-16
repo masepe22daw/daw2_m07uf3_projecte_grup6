@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
 class UsuarisController extends Controller
 {
@@ -114,6 +115,39 @@ public function showUpdateForm()
             }
         } else {
             return view('usuaris.search');
+        }
+    }
+
+    
+    public function showPdfForm()
+    {
+        return view('usuaris.pdf-form');
+    }
+    public function generarPDF(Request $request)
+    {
+        $email = $request->input('email');
+
+        $user = DB::table('users')
+            ->where('email', $email)
+            ->first();
+
+        if ($user) {
+            $dompdf = new Dompdf();
+
+            $html = '<h1>Informació del Usuari</h1>';
+            $html .= '<p>ID: ' . $user->id . '</p>';
+            $html .= '<p>Nom: ' . $user->name . '</p>';
+            $html .= '<p>Email: ' . $user->email . '</p>';
+            $html .= '<p>Tipus: ' . $user->Tipus . '</p>';
+            $html .= '<p>Última Hora de Entrada: ' . $user->DarreraHoraEntrada . '</p>';
+            $html .= '<p>Última Hora de Salida: ' . $user->DarreraHoraSortida . '</p>';
+
+            $dompdf->loadHtml($html);
+            $dompdf->render();
+
+            $dompdf->stream('usuari.pdf');
+        } else {
+            return back()->with('error', 'No se encontraron datos del usuari');
         }
     }
 }

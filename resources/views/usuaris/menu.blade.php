@@ -21,6 +21,7 @@
     <li class="list-group-item"><a href="{{ route('usuaris.delete') }}">Esborrar un usuari</a></li>
     <li class="list-group-item"><a href="{{ route('usuaris.edit') }}">Editar un usuari</a></li>
     <li class="list-group-item"><a href="{{ route('usuaris.search') }}">Busca un usuari</a></li>
+    <li class="list-group-item"><a href="{{ route('usuaris.pdf-form') }}">Generar un PDF</a></li>
 </ul>
 
 <div class="mt-4">
