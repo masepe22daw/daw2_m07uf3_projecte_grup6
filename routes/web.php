@@ -17,67 +17,73 @@ use App\Http\Controllers\UsuarisController;
 |
 */
 
+// Rutas públicas
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Rutas protegidas por autenticación
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/investigador', [InvestigadorController::class, 'index'])->middleware(['auth','gestor.director'])->name('investigador.index');
-Route::get('/investigador/create', [InvestigadorController::class, 'showCreateForm'])->middleware(['auth','gestor.director'])->name('investigador.create');
-Route::get('/investigador/delete', [InvestigadorController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('investigador.delete');
-Route::get('/investigador/edit', [InvestigadorController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('investigador.edit');
-Route::match(['GET', 'POST'], '/investigador/buscar', [InvestigadorController::class, 'search'])->middleware(['auth','gestor.director'])->name('investigador.search');
-Route::get('/investigador/pdf-form', [InvestigadorController::class, 'showPdfForm'])->middleware(['auth','gestor.director'])->name('investigador.pdf-form');
-Route::post('/investigador/generar-pdf', [InvestigadorController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('investigador.generar-pdf');
+    // Rutas per el controlador InvestigadorController
+    Route::middleware(['gestor.director'])->group(function () {
+        Route::get('/investigador', [InvestigadorController::class, 'index'])->name('investigador.index');
+        Route::get('/investigador/create', [InvestigadorController::class, 'showCreateForm'])->name('investigador.create');
+        Route::get('/investigador/delete', [InvestigadorController::class, 'showDeleteForm'])->name('investigador.delete');
+        Route::get('/investigador/edit', [InvestigadorController::class, 'showUpdateForm'])->name('investigador.edit');
+        Route::match(['GET', 'POST'], '/investigador/buscar', [InvestigadorController::class, 'search'])->name('investigador.search');
+        Route::get('/investigador/pdf-form', [InvestigadorController::class, 'showPdfForm'])->name('investigador.pdf-form');
+        Route::post('/investigador/generar-pdf', [InvestigadorController::class, 'generarPDF'])->name('investigador.generar-pdf');
+        Route::post('/investigador/store', [InvestigadorController::class, 'store'])->name('investigador.store');
+        Route::delete('/investigador/destroy', [InvestigadorController::class, 'destroy'])->name('investigador.destroy');
+        Route::put('/investigador/update', [InvestigadorController::class, 'update'])->name('investigador.update');
+    });
 
+    // Rutas per el controlador ProjecteController
+    Route::middleware(['gestor.director'])->group(function () {
+        Route::get('/projecte', [ProjecteController::class, 'index'])->name('projecte.index');
+        Route::get('/projecte/create', [ProjecteController::class, 'showCreateForm'])->name('projecte.create');
+        Route::get('/projecte/delete', [ProjecteController::class, 'showDeleteForm'])->name('projecte.delete');
+        Route::get('/projecte/edit', [ProjecteController::class, 'showUpdateForm'])->name('projecte.edit');
+        Route::match(['GET', 'POST'], '/projecte/buscar', [ProjecteController::class, 'search'])->name('projecte.search');
+        Route::get('/projecte/pdf-form', [ProjecteController::class, 'showPdfForm'])->name('projecte.pdf-form');
+        Route::post('/projecte/generar-pdf', [ProjecteController::class, 'generarPDF'])->name('projecte.generar-pdf');
+        Route::post('/projecte/store', [ProjecteController::class, 'store'])->name('projecte.store');
+        Route::delete('/projecte/destroy', [ProjecteController::class, 'destroy'])->name('projecte.destroy');
+        Route::put('/projecte/update', [ProjecteController::class, 'update'])->name('projecte.update');
+    });
 
+    // Rutas per el controlador ParticipaController
+Route::middleware(['gestor.director'])->group(function () {
+    Route::get('/participa', [ParticipaController::class, 'index'])->name('participa.index');
+    Route::get('/participa/create', [ParticipaController::class, 'showCreateForm'])->name('participa.create');
+    Route::get('/participa/delete', [ParticipaController::class, 'showDeleteForm'])->name('participa.delete');
+    Route::get('/participa/edit', [ParticipaController::class, 'showUpdateForm'])->name('participa.edit');
+    Route::match(['GET', 'POST'], '/participa/buscar', [ParticipaController::class, 'search'])->name('participa.search');
+    Route::get('/participa/pdf-form', [ParticipaController::class, 'showPdfForm'])->name('participa.pdf-form');
+    Route::post('/participa/generar-pdf', [ParticipaController::class, 'generarPDF'])->name('participa.generar-pdf');
+    Route::post('/participa/store', [ParticipaController::class, 'store'])->name('participa.store');
+    Route::delete('/participa/destroy', [ParticipaController::class, 'destroy'])->name('participa.destroy');
+    Route::put('/participa/update', [ParticipaController::class, 'update'])->name('participa.update');
+});
 
-Route::post('/investigador/store', [InvestigadorController::class, 'store'])->middleware(['auth','gestor.director'])->name('investigador.store');
-Route::delete('/investigador/destroy', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
-Route::put('/investigador/update', [InvestigadorController::class, 'update'])->middleware(['auth','gestor.director'])->name('investigador.update');
-
-
-Route::get('/projecte', [ProjecteController::class, 'index'])->middleware(['auth','gestor.director'])->name('projecte.index');
-Route::get('/projecte/create', [ProjecteController::class, 'showCreateForm'])->middleware(['auth','gestor.director'])->name('projecte.create');
-Route::get('/projecte/delete', [ProjecteController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('projecte.delete');
-Route::get('/projecte/edit', [ProjecteController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('projecte.edit');
-Route::match(['GET', 'POST'], '/projecte/buscar', [ProjecteController::class, 'search'])->middleware(['auth','gestor.director'])->name('projecte.search');
-Route::get('/projecte/pdf-form', [ProjecteController::class, 'showPdfForm'])->middleware(['auth','gestor.director'])->name('projecte.pdf-form');
-Route::post('/projecte/generar-pdf', [ProjecteController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('projecte.generar-pdf');
-
-
-Route::post('/projecte/store', [ProjecteController::class, 'store'])->middleware(['auth','gestor.director'])->name('projecte.store');
-Route::delete('/projecte/destroy', [ProjecteController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('projecte.destroy');
-Route::put('/projecte/update', [ProjecteController::class, 'update'])->middleware(['auth','gestor.director'])->name('projecte.update');
-
-
-Route::get('/participa', [ParticipaController::class, 'index'])->middleware(['auth','gestor.director'])->name('participa.index');
-Route::get('/participa/create', [ParticipaController::class, 'showCreateForm'])->middleware(['auth','gestor.director'])->name('participa.create');
-Route::get('/participa/delete', [ParticipaController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('participa.delete');
-Route::get('/participa/edit', [ParticipaController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('participa.edit');
-Route::match(['GET', 'POST'], '/participa/buscar', [ParticipaController::class, 'search'])->middleware(['auth','gestor.director'])->name('participa.search');
-Route::get('/participa/pdf-form', [ParticipaController::class, 'showPdfForm'])->middleware(['auth','gestor.director'])->name('participa.pdf-form');
-Route::post('/participa/generar-pdf', [ParticipaController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('participa.generar-pdf');
-
-Route::post('/participa/store', [ParticipaController::class, 'store'])->middleware(['auth','gestor.director'])->name('participa.store');
-Route::delete('/participa/destroy', [ParticipaController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('participa.destroy');
-Route::put('/participa/update', [ParticipaController::class, 'update'])->middleware(['auth','gestor.director'])->name('participa.update');
-
-
-Route::get('/usuaris', [UsuarisController::class, 'index'])->middleware(['auth','director'])->name('usuaris.index');
-Route::get('/usuaris/create', [UsuarisController::class, 'showCreateForm'])->middleware(['auth','director'])->name('usuaris.create');
-Route::get('/usuaris/delete', [UsuarisController::class, 'showDeleteForm'])->middleware(['auth','director'])->name('usuaris.delete');
-Route::get('/usuaris/edit', [UsuarisController::class, 'showUpdateForm'])->middleware(['auth','director'])->name('usuaris.edit');
-Route::match(['GET', 'POST'], '/usuaris/buscar', [UsuarisController::class, 'search'])->middleware(['auth','director'])->name('usuaris.search');
-Route::get('/usuaris/pdf-form', [UsuarisController::class, 'showPdfForm'])->middleware(['auth','director'])->name('usuaris.pdf-form');
-Route::post('/usuaris/generar-pdf', [UsuarisController::class, 'generarPDF'])->middleware(['auth','director'])->name('usuaris.generar-pdf');
-
-Route::post('/usuaris/store', [UsuarisController::class, 'store'])->middleware(['auth','director'])->name('usuaris.store');
-Route::delete('/usuaris/destroy', [UsuarisController::class, 'destroy'])->middleware(['auth','director'])->name('usuaris.destroy');
-Route::put('/usuaris/update', [UsuarisController::class, 'update'])->middleware(['auth','director'])->name('usuaris.update');
+    // Rutas per el controlador UsuarisController
+Route::middleware(['director'])->group(function () {
+    Route::get('/usuaris', [UsuarisController::class, 'index'])->name('usuaris.index');
+    Route::get('/usuaris/create', [UsuarisController::class, 'showCreateForm'])->name('usuaris.create');
+    Route::get('/usuaris/delete', [UsuarisController::class, 'showDeleteForm'])->name('usuaris.delete');
+    Route::get('/usuaris/edit', [UsuarisController::class, 'showUpdateForm'])->name('usuaris.edit');
+    Route::match(['GET', 'POST'], '/usuaris/buscar', [UsuarisController::class, 'search'])->name('usuaris.search');
+    Route::get('/usuaris/pdf-form', [UsuarisController::class, 'showPdfForm'])->name('usuaris.pdf-form');
+    Route::post('/usuaris/generar-pdf', [UsuarisController::class, 'generarPDF'])->name('usuaris.generar-pdf');
+    Route::post('/usuaris/store', [UsuarisController::class, 'store'])->name('usuaris.store');
+    Route::delete('/usuaris/destroy', [UsuarisController::class, 'destroy'])->name('usuaris.destroy');
+    Route::put('/usuaris/update', [UsuarisController::class, 'update'])->name('usuaris.update');
+});
+});
 
 
 require __DIR__.'/auth.php';
