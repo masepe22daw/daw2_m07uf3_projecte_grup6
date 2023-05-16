@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Projecte;
+use Illuminate\Support\Facades\DB;
 
 class ProjecteController extends Controller
 {
@@ -42,6 +43,40 @@ public function store(Request $request)
     return redirect()->route('projecte.create')->with('success', 'projecte creat correctament.');
 }
 
-    
+public function showDeleteForm()
+{
+    return view('projecte.delete');
+}
+
+public function destroy(Request $request)
+{
+    $request->validate([
+        'CodiProj' => 'required|exists:PROJECTES,CodiProj',
+    ]);
+
+    $CodiProj = $request->input('CodiProj');
+
+    DB::beginTransaction();
+
+    try {
+        $projecte = Projecte::findOrFail($CodiProj);
+        $projecte->delete();
+
+        // Verificar si hay registros relacionados en PARTICIPA
+        $participaExists = DB::table('PARTICIPA')->where('CodiProj', $CodiProj)->exists();
+
+        if ($participaExists) {
+            DB::table('PARTICIPA')->where('CodiProj', $CodiProj)->delete();
+        }
+
+        DB::commit();
+
+        return redirect()->route('projecte.delete')->with('success', 'Proyecto eliminado correctamente.');
+    } catch (\Exception $e) {
+        DB::rollback();
+
+        return redirect()->back()->with('error', 'Error al eliminar el proyecto.');
+    }
+}
   
 }
