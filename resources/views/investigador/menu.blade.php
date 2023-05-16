@@ -29,6 +29,9 @@
     <li class="list-group-item">
         <a href="{{ route('investigador.search') }}" class="link-primary">Busca un investigador</a>
     </li>
+    <li class="list-group-item">
+        <a href="{{ route('investigador.pdf-form') }}" class="link-primary">Genera un PDF</a>
+    </li>
 </ul>
 
 <div class="mt-3">

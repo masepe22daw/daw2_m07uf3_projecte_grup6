@@ -7,6 +7,8 @@ use App\Models\Investigador;
 use App\Models\Participa;
 use App\Models\Projecte;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\View;
 
 class InvestigadorController extends Controller
 {
@@ -145,4 +147,52 @@ public function search(Request $request)
         }
     }
   
+
+    public function showPdfForm()
+    {
+        return view('investigador.pdf-form');
+    }
+
+    public function generarPDF(Request $request)
+    {
+       
+        $passaport = $request->input('passaport');
+
+       
+        $investigador = DB::table('INVESTIGADORS')
+            ->where('Passaport', $passaport)
+            ->first();
+
+        
+        if ($investigador) {
+            
+            $dompdf = new Dompdf();
+
+            
+           
+            $html = '<h1>Informació del Investigador</h1>';
+            $html .= '<p>Pasaporte: ' . $investigador->Passaport . '</p>';
+            $html .= '<p>CodiAssegMèdica: ' . $investigador->CodiAssegMèdica . '</p>';
+            $html .= '<p>NomCognoms: ' . $investigador->NomCognoms . '</p>';
+            $html .= '<p>Especialitat: ' . $investigador->Especialitat . '</p>';
+            $html .= '<p>Telefon: ' . $investigador->Telefon . '</p>';
+            $html .= '<p>Adreça: ' . $investigador->Adreça . '</p>';
+            $html .= '<p>Ciutat: ' . $investigador->Ciutat . '</p>';
+            $html .= '<p>País: ' . $investigador->País . '</p>';
+            $html .= '<p>Email: ' . $investigador->Email . '</p>';
+            $html .= '<p>Titulacio: ' . $investigador->Titulacio . '</p>';
+
+           
+            $dompdf->loadHtml($html);
+
+          
+            $dompdf->render();
+
+           
+            $dompdf->stream('investigador.pdf');
+        } else {
+          
+            return back()->with('error', 'No se encontraron datos del investigador');
+        }
+    }
 }
