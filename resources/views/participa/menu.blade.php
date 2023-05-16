@@ -22,6 +22,7 @@
     <li class="list-group-item"><a href="{{ route('participa.delete') }}">Elimina  un registre de  participa</a></li>
     <li class="list-group-item"><a href="{{ route('participa.edit') }}">Modifica  un registre de  participa</a></li>
     <li class="list-group-item"><a href="{{ route('participa.search') }}">Busca  un registre de  participa</a></li>
+    <li class="list-group-item"><a href="{{ route('participa.pdf-form') }}">Generar un PDF</a></li>
 </ul>
 <br>
 <div>

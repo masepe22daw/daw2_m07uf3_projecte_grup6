@@ -59,7 +59,8 @@ Route::get('/participa/create', [ParticipaController::class, 'showCreateForm'])-
 Route::get('/participa/delete', [ParticipaController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('participa.delete');
 Route::get('/participa/edit', [ParticipaController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('participa.edit');
 Route::match(['GET', 'POST'], '/participa/buscar', [ParticipaController::class, 'search'])->middleware(['auth','gestor.director'])->name('participa.search');
-
+Route::get('/participa/pdf-form', [ParticipaController::class, 'showPdfForm'])->middleware(['auth','gestor.director'])->name('participa.pdf-form');
+Route::post('/participa/generar-pdf', [ParticipaController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('participa.generar-pdf');
 
 Route::post('/participa/store', [ParticipaController::class, 'store'])->middleware(['auth','gestor.director'])->name('participa.store');
 Route::delete('/participa/destroy', [ParticipaController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('participa.destroy');

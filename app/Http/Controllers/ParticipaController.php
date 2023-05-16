@@ -128,4 +128,39 @@ public function search(Request $request)
     }
 }
 
+
+public function showPdfForm()
+{
+    return view('participa.pdf-form');
+}
+public function generarPDF(Request $request)
+{
+    $passaport = $request->input('passaport');
+    $codiProj = $request->input('codiProj');
+
+    $participacion = DB::table('PARTICIPA')
+        ->where('Passaport', $passaport)
+        ->where('CodiProj', $codiProj)
+        ->first();
+
+    if ($participacion) {
+        $dompdf = new Dompdf();
+
+        $html = '<h1>Informació de la Participació</h1>';
+        $html .= '<p>Passaport: ' . $participacion->Passaport . '</p>';
+        $html .= '<p>CodiProj: ' . $participacion->CodiProj . '</p>';
+        $html .= '<p>DataInici: ' . $participacion->DataInici . '</p>';
+        $html .= '<p>DataFinal: ' . $participacion->DataFinal . '</p>';
+        $html .= '<p>Retribucio: ' . $participacion->Retribucio . '</p>';
+        $html .= '<p>ParticipacioProrrogable: ' . $participacion->ParticipacioProrrogable . '</p>';
+        $html .= '<p>ParticipacioPublicacio: ' . $participacion->ParticipacioPublicacio . '</p>';
+
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        $dompdf->stream('participacion.pdf');
+    } else {
+        return back()->with('error', 'No se encontraron datos de la participación');
+    }
+}
 }
