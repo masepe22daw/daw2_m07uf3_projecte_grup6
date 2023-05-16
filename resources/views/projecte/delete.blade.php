@@ -1,6 +1,6 @@
 <form method="POST" action="{{ route('projecte.destroy') }}">
     @csrf
-
+    @method('DELETE')
     <div>
         <label for="CodiProj">CodiProjecte:</label>
         <input type="text" name="CodiProj" id="CodiProj" required>

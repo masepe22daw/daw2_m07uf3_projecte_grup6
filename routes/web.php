@@ -32,7 +32,7 @@ Route::match(['GET', 'POST'], '/investigador/buscar', [InvestigadorController::c
 Route::match(['GET', 'POST'], '/investigador/pdf', [InvestigadorController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('investigador.pdf');
 
 Route::post('/investigador/store', [InvestigadorController::class, 'store'])->middleware(['auth','gestor.director'])->name('investigador.store');
-Route::post('/investigador/destroy', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
+Route::delete('/investigador/destroy', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
 Route::put('/investigador/update', [InvestigadorController::class, 'update'])->middleware(['auth','gestor.director'])->name('investigador.update');
 
 
@@ -45,7 +45,7 @@ Route::match(['GET', 'POST'], '/projecte/buscar', [ProjecteController::class, 's
 
 
 Route::post('/projecte/store', [ProjecteController::class, 'store'])->middleware(['auth','gestor.director'])->name('projecte.store');
-Route::post('/projecte/destroy', [ProjecteController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('projecte.destroy');
+Route::delete('/projecte/destroy', [ProjecteController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('projecte.destroy');
 Route::put('/projecte/update', [ProjecteController::class, 'update'])->middleware(['auth','gestor.director'])->name('projecte.update');
 
 Route::get('/participa', [ParticipaController::class, 'index'])->middleware(['auth','gestor.director'])->name('participa.index');

@@ -73,7 +73,7 @@ public function destroy(Request $request)
 
         DB::commit();
 
-        return redirect()->route('projecte.delete')->with('success', 'Proyecto eliminado correctamente.');
+        return redirect()->route('investigador.delete')->with('success', 'Proyecto eliminado correctamente.');
     } catch (\Exception $e) {
         DB::rollback();
 

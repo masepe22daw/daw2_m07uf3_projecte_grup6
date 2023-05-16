@@ -1,6 +1,6 @@
 <form method="POST" action="{{ route('investigador.destroy') }}">
     @csrf
-
+    @method('DELETE')
     <div>
         <label for="passaport">Passaport:</label>
         <input type="text" name="passaport" id="passaport" required>
