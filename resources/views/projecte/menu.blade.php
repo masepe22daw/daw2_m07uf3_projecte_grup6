@@ -6,7 +6,10 @@
 
 <ul>
     <a href="{{ route('projecte.create') }}">Agregar un nuevo projecte</a><br/>
-    <a href="{{ route('projecte.search') }}">Ver todos los projectes</a><br/>
-    <a href="{{ route('projecte.edit')}}">Editar información del projecte</a><br/>
-    <a href="{{ route('projecte.destroy')}}">Eliminar projecte</a><br/>
+
+    
 </ul>
+
+<div>
+    <a href="{{ route('dashboard') }}" class="btn btn-secondary"><button>Torna enrere</button></a>
+</div>

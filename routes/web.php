@@ -31,10 +31,6 @@ Route::get('/investigador/edit', [InvestigadorController::class, 'showUpdateForm
 Route::match(['GET', 'POST'], '/investigador/buscar', [InvestigadorController::class, 'search'])->middleware(['auth','gestor.director'])->name('investigador.search');
 Route::match(['GET', 'POST'], '/investigador/pdf', [InvestigadorController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('investigador.pdf');
 
-
-
-
-
 Route::post('/investigador/store', [InvestigadorController::class, 'store'])->middleware(['auth','gestor.director'])->name('investigador.store');
 Route::delete('/investigador/delete', [InvestigadorController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('investigador.destroy');
 Route::put('/investigador/update', [InvestigadorController::class, 'update'])->name('investigador.update');
@@ -42,6 +38,9 @@ Route::put('/investigador/update', [InvestigadorController::class, 'update'])->n
 
 
 Route::get('/projecte', [ProjecteController::class, 'index'])->middleware(['auth','gestor.director'])->name('projecte.index');
+Route::get('/projecte/create', [ProjecteController::class, 'showCreateForm'])->middleware(['auth','gestor.director'])->name('projecte.create');
+
+Route::post('/projecte/store', [ProjecteController::class, 'store'])->middleware(['auth','gestor.director'])->name('projecte.store');
 
 
 Route::get('/participa', [ParticipaController::class, 'index'])->middleware(['auth','gestor.director'])->name('participa.index');

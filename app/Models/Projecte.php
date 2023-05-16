@@ -7,22 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Projecte extends Model
 {
     protected $table = 'PROJECTES';
-
     protected $primaryKey = 'CodiProj';
-
     public $incrementing = false;
-
     protected $keyType = 'string';
+    public $timestamps = false;
 
-  
-    public function responsable()
-    {
-        return $this->belongsTo(Investigador::class, 'PassaportResponsable', 'Passaport');
-    }
-
-    public function usuarios()
-    {
-        return $this->belongsToMany(Usuario::class, 'acceso', 'CodiProj', 'Email')
-                    ->withPivot('Tipo');
-    }
+    protected $fillable = [
+        'CodiProj',
+        'Nom',
+        'DataInici',
+        'DataFinal',
+        'Classificacio',
+        'HoresAssignades',
+        'PressupostAssignat',
+        'MaxNumInvestigadors',
+        'Responsable',
+        'Investigacio',
+        'Idioma'
+    ];
 }
