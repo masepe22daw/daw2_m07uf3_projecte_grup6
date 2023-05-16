@@ -13,18 +13,16 @@
 <div id="resultados">
     @if(isset($investigador))
         <h2>Detalls del Investigador</h2>
-        <ul>
-            <li>Passaport: {{ $investigador->Passaport }}</li>
-            <li>Codi Assegurança Mèdica: {{ $investigador->CodiAssegMèdica }}</li>
-            <li>Nom y Cognoms: {{ $investigador->NomCognoms }}</li>
-            <li>Especialitat: {{ $investigador->Especialitat }}</li>
-            <li>Telèfon: {{ $investigador->Telefon }}</li>
-            <li>Adreça: {{ $investigador->Adreça }}</li>
-            <li>Ciutat: {{ $investigador->Ciutat }}</li>
-            <li>País: {{ $investigador->País }}</li>
-            <li>Email: {{ $investigador->Email }}</li>
-            <li>Titulació: {{ $investigador->Titulacio }}</li>
-        </ul>
+            <p>Passaport: {{ $investigador->Passaport }}</p>
+            <p>Codi Assegurança Mèdica: {{ $investigador->CodiAssegMèdica }}</p>
+            <p>Nom y Cognoms: {{ $investigador->NomCognoms }}</p>
+            <p>Especiaptat: {{ $investigador->Especiaptat }}</p>
+            <p>Telèfon: {{ $investigador->Telefon }}</p>
+            <p>Adreça: {{ $investigador->Adreça }}</p>
+            <p>Ciutat: {{ $investigador->Ciutat }}</p>
+            <p>País: {{ $investigador->País }}</p>
+            <p>Email: {{ $investigador->Email }}</p>
+            <p>Titulació: {{ $investigador->Titulacio }}</p>
     @elseif(session('error'))
         <p>{{ session('error') }}</p>
     @endif

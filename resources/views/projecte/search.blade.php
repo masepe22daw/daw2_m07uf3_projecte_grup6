@@ -13,19 +13,17 @@
 <div id="resultados">
     @if(isset($projecte))
         <h2>Detalls del projecte</h2>
-        <ul>
-            <li>CodiProj: {{ $projecte->CodiProj}}</li>
-            <li>Nom: {{ $projecte->Nom}}</li>
-            <li>DataInici: {{ $projecte->DataInici }}</li>
-            <li>DataFinal: {{ $projecte->DataFinal }}</li>
-            <li>Classificacio: {{ $projecte->Classificacio }}</li>
-            <li>HoresAssignades: {{ $projecte->HoresAssignades }}</li>
-            <li>PressupostAssignat: {{ $projecte->PressupostAssignat }}</li>
-            <li>MaxNumInvestigadors: {{ $projecte->MaxNumInvestigadors }}</li>
-            <li>Responsable: {{ $projecte->Responsable }}</li>
-            <li>Investigacio: {{ $projecte->Investigacio }}</li>
-            <li>Idioma: {{ $projecte->Idioma }}</li>
-        </ul>
+            <p>CodiProj: {{ $projecte->CodiProj}}</p>
+            <p>Nom: {{ $projecte->Nom}}</p>
+            <p>DataInici: {{ $projecte->DataInici }}</p>
+            <p>DataFinal: {{ $projecte->DataFinal }}</p>
+            <p>Classificacio: {{ $projecte->Classificacio }}</p>
+            <p>HoresAssignades: {{ $projecte->HoresAssignades }}</p>
+            <p>PressupostAssignat: {{ $projecte->PressupostAssignat }}</p>
+            <p>MaxNumInvestigadors: {{ $projecte->MaxNumInvestigadors }}</p>
+            <p>Responsable: {{ $projecte->Responsable }}</p>
+            <p>Investigacio: {{ $projecte->Investigacio }}</p>
+            <p>Idioma: {{ $projecte->Idioma }}</p>
     @elseif(session('error'))
         <p>{{ session('error') }}</p>
     @endif
