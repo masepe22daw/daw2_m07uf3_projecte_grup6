@@ -50,7 +50,7 @@
 @endif
 <br/>
 <div>
-    <a href="{{ route('investigador.index') }}" >
+    <a href="{{ route('participa.index') }}" >
         <button class="btn btn-secondary">Torna enrere</button>
     </a>
 </div>

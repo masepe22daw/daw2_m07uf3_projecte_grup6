@@ -39,11 +39,12 @@ class EventServiceProvider extends ServiceProvider
             $user->save();
         });
         
-        Event::listen(Logout::class, function ($event) {
+        Event::listen(Session\Events\Logout::class, function ($event) {
             $user = Auth::user(); // Obtén el usuario autenticado actualmente
             $user->DarreraHoraSortida = now();
             $user->save();
         });
+        
         
     }
 }
