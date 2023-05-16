@@ -9,7 +9,6 @@
     <a href="{{ route('investigador.delete') }}">Esborra un investigador</a><br/>
     <a href="{{ route('investigador.edit') }}">Edita un investigador</a><br/>
     <a href="{{ route('investigador.search') }}">Busca un investigador</a><br/>
-    <a href="{{ route('investigador.pdf') }}">Genera un PDF d'un investigador</a><br/>
 </ul>
 
 <div>

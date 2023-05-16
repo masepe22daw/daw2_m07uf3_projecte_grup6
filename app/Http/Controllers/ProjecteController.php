@@ -34,7 +34,7 @@ public function store(Request $request)
     $projecte->Classificacio = $request->input('Classificacio');
     $projecte->HoresAssignades = $request->input('HoresAssignades');
     $projecte->PressupostAssignat = $request->input('PressupostAssignat');
-    $projecte->MaxNumprojectes = $request->input('MaxNumprojectes');
+    $projecte->MaxNumInvestigadors = $request->input('MaxNumInvestigadors');
     $projecte->Responsable = $request->input('Responsable');
     $projecte->Investigacio = $request->input('Investigacio');
     $projecte->Idioma = $request->input('Idioma');

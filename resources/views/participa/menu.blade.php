@@ -6,7 +6,9 @@
 
 <ul>
     <a href="{{ route('participa.create') }}">Agregar un nuevo participa</a><br/>
-    <a href="{{ route('participa.search') }}">Ver todos los participaes</a><br/>
-    <a href="{{ route('participa.edit')}}">Editar información del participa</a><br/>
-    <a href="{{ route('participa.destroy')}}">Eliminar participa</a><br/>
+
 </ul>
+
+<div>
+    <a href="{{ route('dashboard') }}" class="btn btn-secondary"><button>Torna enrere</button></a>
+</div>
