@@ -21,6 +21,7 @@
     <li class="list-group-item"><a href="{{ route('projecte.delete') }}">Eliminar un projecte</a></li>
     <li class="list-group-item"><a href="{{ route('projecte.edit') }}">Editar un projecte</a></li>
     <li class="list-group-item"><a href="{{ route('projecte.search') }}">Buscar un projecte</a></li>
+    <li class="list-group-item"><a href="{{ route('projecte.pdf-form') }}">Generar un PDF</a></li>
 </ul>
 <br>
 <div>

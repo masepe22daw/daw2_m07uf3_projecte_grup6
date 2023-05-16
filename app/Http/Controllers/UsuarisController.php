@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\View;
 
 class UsuarisController extends Controller
 {

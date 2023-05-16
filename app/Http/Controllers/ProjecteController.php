@@ -7,6 +7,9 @@ use App\Models\Projecte;
 use Illuminate\Support\Facades\DB;
 use App\Models\Participa;
 use App\Models\investigador;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\View;
+
 
 class ProjecteController extends Controller
 {
@@ -135,4 +138,43 @@ public function search(Request $request)
         }
     }
 
+    
+    public function showPdfForm()
+    {
+        return view('projecte.pdf-form');
+    }
+    public function generarPDF(Request $request)
+    {
+        $codiProj = $request->input('CodiProj');
+
+        $projecte = DB::table('PROJECTES')
+            ->where('CodiProj', $codiProj)
+            ->first();
+
+        if ($projecte) {
+            $dompdf = new Dompdf();
+
+            $html = '<h1>Informació del Projecte</h1>';
+            $html .= '<p>CodiProj: ' . $projecte->CodiProj . '</p>';
+            $html .= '<p>Nom: ' . $projecte->Nom . '</p>';
+            $html .= '<p>DataInici: ' . $projecte->DataInici . '</p>';
+            $html .= '<p>DataFinal: ' . $projecte->DataFinal . '</p>';
+            $html .= '<p>Classificacio: ' . $projecte->Classificacio . '</p>';
+            $html .= '<p>HoresAssignades: ' . $projecte->HoresAssignades . '</p>';
+            $html .= '<p>PressupostAssignat: ' . $projecte->PressupostAssignat . '</p>';
+            $html .= '<p>MaxNumInvestigadors: ' . $projecte->MaxNumInvestigadors . '</p>';
+            $html .= '<p>Responsable: ' . $projecte->Responsable . '</p>';
+            $html .= '<p>Investigacio: ' . $projecte->Investigacio . '</p>';
+            $html .= '<p>Idioma: ' . $projecte->Idioma . '</p>';
+
+            $dompdf->loadHtml($html);
+            $dompdf->render();
+
+            $dompdf->stream('projecte.pdf');
+        } else {
+            return back()->with('error', 'No se encontraron datos del proyecto');
+        }
+    }
 }
+
+

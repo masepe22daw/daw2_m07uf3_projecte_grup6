@@ -30,8 +30,8 @@ Route::get('/investigador/create', [InvestigadorController::class, 'showCreateFo
 Route::get('/investigador/delete', [InvestigadorController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('investigador.delete');
 Route::get('/investigador/edit', [InvestigadorController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('investigador.edit');
 Route::match(['GET', 'POST'], '/investigador/buscar', [InvestigadorController::class, 'search'])->middleware(['auth','gestor.director'])->name('investigador.search');
-Route::get('/investigador/pdf-form', [InvestigadorController::class, 'showPdfForm'])->name('investigador.pdf-form');
-Route::post('/investigador/generar-pdf', [InvestigadorController::class, 'generarPDF'])->name('investigador.generar-pdf');
+Route::get('/investigador/pdf-form', [InvestigadorController::class, 'showPdfForm'])->middleware(['auth','gestor.director'])->name('investigador.pdf-form');
+Route::post('/investigador/generar-pdf', [InvestigadorController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('investigador.generar-pdf');
 
 
 
@@ -45,6 +45,9 @@ Route::get('/projecte/create', [ProjecteController::class, 'showCreateForm'])->m
 Route::get('/projecte/delete', [ProjecteController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('projecte.delete');
 Route::get('/projecte/edit', [ProjecteController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('projecte.edit');
 Route::match(['GET', 'POST'], '/projecte/buscar', [ProjecteController::class, 'search'])->middleware(['auth','gestor.director'])->name('projecte.search');
+Route::get('/projecte/pdf-form', [ProjecteController::class, 'showPdfForm'])->middleware(['auth','gestor.director'])->name('projecte.pdf-form');
+Route::post('/projecte/generar-pdf', [ProjecteController::class, 'generarPDF'])->middleware(['auth','gestor.director'])->name('projecte.generar-pdf');
+
 
 Route::post('/projecte/store', [ProjecteController::class, 'store'])->middleware(['auth','gestor.director'])->name('projecte.store');
 Route::delete('/projecte/destroy', [ProjecteController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('projecte.destroy');
