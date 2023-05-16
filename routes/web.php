@@ -62,10 +62,13 @@ Route::put('/participa/update', [ParticipaController::class, 'update'])->middlew
 Route::get('/usuaris', [UsuarisController::class, 'index'])->middleware(['auth','director'])->name('usuaris.index');
 Route::get('/usuaris/create', [UsuarisController::class, 'showCreateForm'])->middleware(['auth','director'])->name('usuaris.create');
 Route::get('/usuaris/delete', [UsuarisController::class, 'showDeleteForm'])->middleware(['auth','director'])->name('usuaris.delete');
+Route::get('/usuaris/edit', [UsuarisController::class, 'showUpdateForm'])->middleware(['auth','director'])->name('usuaris.edit');
+Route::match(['GET', 'POST'], '/usuaris/buscar', [UsuarisController::class, 'search'])->middleware(['auth','director'])->name('usuaris.search');
 
 
 Route::post('/usuaris/store', [UsuarisController::class, 'store'])->middleware(['auth','director'])->name('usuaris.store');
 Route::delete('/usuaris/destroy', [UsuarisController::class, 'destroy'])->middleware(['auth','director'])->name('usuaris.destroy');
+Route::put('/usuaris/update', [UsuarisController::class, 'update'])->middleware(['auth','director'])->name('usuaris.update');
 
 
 require __DIR__.'/auth.php';

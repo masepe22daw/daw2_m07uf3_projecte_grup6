@@ -66,4 +66,53 @@ public function destroy(Request $request)
 }
   
 
+public function showUpdateForm()
+    {
+        return view('usuaris.edit');
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'campo' => 'required',
+            'value' => 'required',
+        ]);
+
+        $user = User::find($request->input('user_id'));
+
+        if ($user) {
+            $campo = $request->input('campo');
+            $value = $request->input('value');
+
+            $user->$campo = $value;
+            $user->save();
+
+            return redirect()->route('usuaris.edit')->with('success', 'Usuario actualizado exitosamente.');
+        } else {
+            return redirect()->route('usuaris.edit')->with('error', 'No se encontró el usuario.');
+        }
+    }
+
+
+    public function search(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'id' => 'required',
+            ]);
+
+            try {
+                $id = $request->input('id');
+
+                $usuari = User::findOrFail($id);
+
+                return view('usuaris.search', compact('usuari'));
+            } catch (\Exception $e) {
+                return view('usuaris.search')->with('error', 'No se encontró ningún usuari con el id proporcionado.');
+            }
+        } else {
+            return view('usuaris.search');
+        }
+    }
 }
