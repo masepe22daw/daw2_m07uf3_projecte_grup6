@@ -22,7 +22,6 @@
     <div class="mb-3">
         <label for="campo" class="form-label">Campo a editar:</label>
         <select name="campo" id="campo" class="form-select">
-            <option value="Passaport">Passaport</option>
             <option value="NomCognoms">Nom i Cognoms</option>
             <option value="CodiAssegMèdica">CodiAssegMèdica</option>
             <option value="Especialitat">Especialitat</option>
