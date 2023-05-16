@@ -49,8 +49,12 @@ Route::put('/projecte/update', [ProjecteController::class, 'update'])->middlewar
 
 Route::get('/participa', [ParticipaController::class, 'index'])->middleware(['auth','gestor.director'])->name('participa.index');
 Route::get('/participa/create', [ParticipaController::class, 'showCreateForm'])->middleware(['auth','gestor.director'])->name('participa.create');
+Route::get('/participa/delete', [ParticipaController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('participa.delete');
+Route::get('/participa/edit', [Participa::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('participa.edit');
+
 
 Route::post('/participa/store', [ParticipaController::class, 'store'])->middleware(['auth','gestor.director'])->name('participa.store');
+Route::delete('/participa/destroy', [ParticipaController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('participa.destroy');
 
 
 Route::get('/usuaris', [ParticipaController::class, 'index'])->middleware(['auth','gestor.director'])->name('usuaris.index');

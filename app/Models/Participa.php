@@ -7,14 +7,15 @@ class Participa extends Model
 {
     protected $table = 'PARTICIPA';
 
+    protected $guarded = [];
     protected $primaryKey = ['Passaport', 'CodiProj'];
+
 
     public $incrementing = false;
 
     protected $keyType = 'string';
 
     public $timestamps = false;
-
 
     protected $fillable = [
         'Passaport',
@@ -26,6 +27,11 @@ class Participa extends Model
         'ParticipacioPublicacio',
     ];
 
+    protected function getCompositeKeyAttribute()
+    {
+        return $this->Passaport . '-' . $this->CodiProj;
+    }
+
     public function investigador()
     {
         return $this->belongsTo(Investigador::class, 'Passaport', 'Passaport');
@@ -36,3 +42,5 @@ class Participa extends Model
         return $this->belongsTo(Projecte::class, 'CodiProj', 'CodiProj');
     }
 }
+
+

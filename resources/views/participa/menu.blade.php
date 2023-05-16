@@ -5,7 +5,8 @@
 @endif
 
 <ul>
-    <a href="{{ route('participa.create') }}">Agregar un nuevo participa</a><br/>
+    <a href="{{ route('participa.create') }}">Afegir un nou registre a participa</a><br/>
+    <a href="{{ route('participa.delete') }}">Elimina  un registre de  participa</a><br/>
 
 </ul>
 

@@ -39,4 +39,39 @@ public function store(Request $request)
 
     return redirect()->route('participa.create')->with('success', 'participa creat correctament.');
 }
+
+public function showDeleteForm()
+{
+    return view('participa.delete');
+}
+
+
+public function destroy(Request $request)
+{
+    $request->validate([
+        'Passaport' => 'required',
+        'CodiProj' => 'required',
+    ]);
+
+    // Obtener las claves primarias del formulario
+    $Passaport = $request->input('Passaport');
+    $CodiProj = $request->input('CodiProj');
+
+    // Buscar y eliminar el registro en la base de datos
+    $result = Participa::where('Passaport', $Passaport)
+        ->where('CodiProj', $CodiProj)
+        ->delete();
+
+    // Verificar si se eliminó el registro correctamente
+    if ($result) {
+        return redirect()->route('participa.delete')->with('success', 'Registro borrado exitosamente.');
+    } else {
+        return redirect()->route('participa.delete')->with('error', 'No se encontró el registro.');
+    }
+}
+
+
+
+
+
 }
