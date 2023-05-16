@@ -1,16 +1,32 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Menu Participa</title>
+</head>
+<style>
+        .content-container {
+            margin-left: 20px;
+        }
+    </style>
+<div class="content-container">
+
 @if (Auth::check())
-    <p>Bienvenido, {{ Auth::user()->name }}</p>
+<h1>Benvingut al menu d'interficies de  Participa</h1>
 @else
     <p>No estás autenticado.</p>
 @endif
 
-<ul>
-    <a href="{{ route('participa.create') }}">Afegir un nou registre a participa</a><br/>
-    <a href="{{ route('participa.delete') }}">Elimina  un registre de  participa</a><br/>
-    <a href="{{ route('participa.edit') }}">Modifica  un registre de  participa</a><br/>
-    <a href="{{ route('participa.search') }}">Busca  un registre de  participa</a><br/>
+<ul class="list-group">
+    <li class="list-group-item"><a href="{{ route('participa.create') }}">Afegir un nou registre a participa</a></li>
+    <li class="list-group-item"><a href="{{ route('participa.delete') }}">Elimina  un registre de  participa</a></li>
+    <li class="list-group-item"><a href="{{ route('participa.edit') }}">Modifica  un registre de  participa</a></li>
+    <li class="list-group-item"><a href="{{ route('participa.search') }}">Busca  un registre de  participa</a></li>
 </ul>
-
+<br>
 <div>
-    <a href="{{ route('dashboard') }}" class="btn btn-secondary"><button>Torna enrere</button></a>
+    <a href="{{ route('dashboard') }}" ><button class="btn btn-secondary">Torna enrere</button></a>
+</div>
+
+
 </div>

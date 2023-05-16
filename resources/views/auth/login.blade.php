@@ -25,7 +25,7 @@
                         <label for="password">Password</label>
                         <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password">
                     </div>
-
+                    <br>
                     <button type="submit" class="btn btn-primary">Log in</button>
                 </form>
             </div>

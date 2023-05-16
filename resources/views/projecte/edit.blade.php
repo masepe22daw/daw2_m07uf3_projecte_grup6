@@ -16,12 +16,12 @@
     @method('PUT')
     <div>
         <label for="CodiProj">Código del Proyecto:</label>
-        <input type="text" name="CodiProj" id="CodiProj" required>
+        <input class="form-control" type="text" name="CodiProj" id="CodiProj" required>
     </div>
-
-    <div>
-        <label for="campo">Campo:</label>
-        <select name="campo" id="campo" required>
+        <br>
+    <div class="form-group">
+        <label class="form-label" for="campo">Campo:</label>
+        <select name="campo" id="campo" class="form-control" required>
             <option value="Nom">Nombre</option>
             <option value="DataInici">Fecha de Inicio</option>
             <option value="DataFinal">Fecha de Finalización</option>
@@ -34,13 +34,13 @@
             <option value="Idioma">Idioma</option>
         </select>
     </div>
-
-    <div>
-        <label for="valor">Nuevo valor:</label>
-        <input type="text" name="valor" id="valor" required>
+        <br>
+    <div class="form-group">
+        <label class="form-label" for="valor">Nuevo valor:</label>
+        <input class="form-control" type="text" name="valor" id="valor" required>
     </div>
-
-    <div>
+        <br>
+    <div class="form-group">
         <button class="btn btn-primary" type="submit">Actualizar</button>
     </div>
 </form>

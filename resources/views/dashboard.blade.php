@@ -16,13 +16,13 @@
 
         @if(auth()->user()->Tipus == 'gestor' || auth()->user()->Tipus == 'director')
             <div class="mb-3">
-                <a href="{{ route('investigador.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de les taules de INVESTIGADORS</a>
+                <a href="{{ route('investigador.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de la taula de INVESTIGADORS</a>
             </div>
             <div class="mb-3">
-                <a href="{{ route('projecte.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de les taules de PROJECTES</a>
+                <a href="{{ route('projecte.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de la taula de PROJECTES</a>
             </div>
             <div class="mb-3">
-                <a href="{{ route('participa.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de les taules de PARTICIPA</a>
+                <a href="{{ route('participa.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de la taula de PARTICIPA</a>
             </div>
         @endif
 
