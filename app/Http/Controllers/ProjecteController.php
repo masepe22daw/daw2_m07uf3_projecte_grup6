@@ -34,7 +34,7 @@ public function store(Request $request)
     $projecte->Classificacio = $request->input('Classificacio');
     $projecte->HoresAssignades = $request->input('HoresAssignades');
     $projecte->PressupostAssignat = $request->input('PressupostAssignat');
-    $projecte->MaxNumInvestigadors = $request->input('MaxNumInvestigadors');
+    $projecte->MaxNumprojectes = $request->input('MaxNumprojectes');
     $projecte->Responsable = $request->input('Responsable');
     $projecte->Investigacio = $request->input('Investigacio');
     $projecte->Idioma = $request->input('Idioma');
@@ -106,5 +106,31 @@ public function update(Request $request)
         return redirect()->back()->with('error', 'Error al actualizar el proyecto.');
     }
 }
+
+public function showSearchForm()
+{
+    return view('projecte.search');
+}
+
+public function search(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'CodiProj' => 'required',
+            ]);
+
+            try {
+                $CodiProj = $request->input('CodiProj');
+
+                $projecte = Projecte::findOrFail($CodiProj);
+
+                return view('projecte.search', compact('projecte'));
+            } catch (\Exception $e) {
+                return view('projecte.search')->with('error', 'No se encontró ningún projecte con el  proporcionado.');
+            }
+        } else {
+            return view('projecte.search');
+        }
+    }
 
 }

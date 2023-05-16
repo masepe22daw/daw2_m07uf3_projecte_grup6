@@ -41,6 +41,8 @@ Route::get('/projecte', [ProjecteController::class, 'index'])->middleware(['auth
 Route::get('/projecte/create', [ProjecteController::class, 'showCreateForm'])->middleware(['auth','gestor.director'])->name('projecte.create');
 Route::get('/projecte/delete', [ProjecteController::class, 'showDeleteForm'])->middleware(['auth','gestor.director'])->name('projecte.delete');
 Route::get('/projecte/edit', [ProjecteController::class, 'showUpdateForm'])->middleware(['auth','gestor.director'])->name('projecte.edit');
+Route::match(['GET', 'POST'], '/projecte/buscar', [ProjecteController::class, 'search'])->middleware(['auth','gestor.director'])->name('projecte.search');
+
 
 Route::post('/projecte/store', [ProjecteController::class, 'store'])->middleware(['auth','gestor.director'])->name('projecte.store');
 Route::post('/projecte/destroy', [ProjecteController::class, 'destroy'])->middleware(['auth','gestor.director'])->name('projecte.destroy');
