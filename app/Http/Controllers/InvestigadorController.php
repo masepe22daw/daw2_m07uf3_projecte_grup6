@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Investigador;
+use App\Models\Participa;
+use App\Models\Projecte;
 use Illuminate\Support\Facades\DB;
 
 class InvestigadorController extends Controller
@@ -41,7 +43,12 @@ public function store(Request $request)
     $investigador->Titulacio = $request->input('Titulacio');
     $investigador->save();
 
-    return redirect()->route('investigador.create')->with('success', 'Investigador creat correctament.');
+    if($investigador){
+        return redirect()->route('investigador.create')->with('success', 'Investigador creat correctament.');
+    }else{
+        return redirect()->route('investigador.create')->with('error', 'No he pogut crear correctament el Investigador.');
+    }
+    
 }
 
 public function showDeleteForm()
@@ -52,32 +59,35 @@ public function showDeleteForm()
 public function destroy(Request $request)
 {
     $request->validate([
-        'passaport' => 'required|exists:INVESTIGADORS,Passaport',
+        'Passaport' => 'required',
+        'CodiProj' => 'required',
     ]);
 
-    $passaport = $request->input('passaport');
+    $Passaport = $request->input('Passaport');
+    $CodiProj = $request->input('CodiProj');
 
     DB::beginTransaction();
 
-    try {
-        $investigador = Investigador::findOrFail($passaport);
+    
+        $result = Participa::where('Passaport', $Passaport)
+            ->where('CodiProj', $CodiProj)
+            ->delete();
+
+        $investigador = Investigador::findOrFail($Passaport);
         $investigador->delete();
-
-        $participaExists = DB::table('PARTICIPA')->where('passaport', $passaport)->exists();
-
-        if ($participaExists) {
-            DB::table('PARTICIPA')->where('passaport', $passaport)->delete();
-        }
-
+      
         DB::commit();
 
-        return redirect()->route('investigador.delete')->with('success', 'Proyecto eliminado correctamente.');
-    } catch (\Exception $e) {
-        DB::rollback();
-
-        return redirect()->back()->with('error', 'Error al eliminar el proyecto.');
-    }
+        if ($result) {
+            return redirect()->route('investigador.delete')->with('success', 'Registro borrado exitosamente.');
+        } else {
+            DB::rollback();
+            return redirect()->route('investigador.delete')->with('error', 'No se encontró el registro.');
+        }
+    
 }
+
+
 
 public function showUpdateForm()
 {

@@ -1,6 +1,3 @@
-<head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/css/bootstrap.min.css">
-</head>
 
 <form method="POST" action="{{ route('usuaris.search') }}" class="form">
     @csrf

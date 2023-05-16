@@ -1,22 +1,41 @@
-<title>Menu principal</title>
-@if (Auth::check())
-    <p>Benvingut al menu principal, {{ Auth::user()->name }}</p>
-@else
-    <p>No estás autenticado.</p>
-@endif
-    @if(auth()->user()->Tipus == 'gestor' || auth()->user()->Tipus == 'director')
-        <a href="{{ route('investigador.index') }}">Accedeix a el menu de manteniment de les dades de les taules de INVESTIGADORS</a><br>
-        <a href="{{ route('projecte.index') }}">Accedeix a el menu de manteniment de les dades de les taules de PROJECTES</a><br>
-        <a href="{{ route('participa.index') }}">Accedeix a el menu de manteniment de les dades de les taules de PARTICIPA</a><br><br>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Menu principal</title>
+</head>
+<body>
+    <div class="container">
+        @if (Auth::check())
+            <h1>Benvingut al menu principal, {{ Auth::user()->name }}</h1>
+        @else
+            <p>No estás autenticado.</p>
+        @endif
 
-    @endif
+        @if(auth()->user()->Tipus == 'gestor' || auth()->user()->Tipus == 'director')
+            <div class="mb-3">
+                <a href="{{ route('investigador.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de les taules de INVESTIGADORS</a>
+            </div>
+            <div class="mb-3">
+                <a href="{{ route('projecte.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de les taules de PROJECTES</a>
+            </div>
+            <div class="mb-3">
+                <a href="{{ route('participa.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades de les taules de PARTICIPA</a>
+            </div>
+        @endif
 
-    @if(auth()->user()->Tipus == 'director')
-    <a href="{{ route('usuaris.index') }}">Accedeix a el menu de manteniment de les dades dels Usuaris</a><br><br>
+        @if(auth()->user()->Tipus == 'director')
+            <div class="mb-3">
+                <a href="{{ route('usuaris.index') }}" class="link-primary">Accedeix al menú de manteniment de les dades dels Usuaris</a>
+            </div>
+        @endif
 
-        
-    @endif
-<form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">Cerrar sesión</button>
-</form>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+        </form>
+    </div>
+</body>
+</html>

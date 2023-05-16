@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Projecte;
 use Illuminate\Support\Facades\DB;
+use App\Models\Participa;
+use App\Models\investigador;
 
 class ProjecteController extends Controller
 {
@@ -51,32 +53,32 @@ public function showDeleteForm()
 public function destroy(Request $request)
 {
     $request->validate([
-        'CodiProj' => 'required|exists:PROJECTES,CodiProj',
+        'Passaport' => 'required',
+        'CodiProj' => 'required',
     ]);
 
+    $Passaport = $request->input('Passaport');
     $CodiProj = $request->input('CodiProj');
 
     DB::beginTransaction();
 
-    try {
-        $projecte = Projecte::findOrFail($CodiProj);
-        $projecte->delete();
+    
+    $result = Participa::where('Passaport', $Passaport)
+        ->where('CodiProj', $CodiProj)
+    ->delete();
 
-        // Verificar si hay registros relacionados en PARTICIPA
-        $participaExists = DB::table('PARTICIPA')->where('CodiProj', $CodiProj)->exists();
+    $projecte = Projecte::findOrFail($CodiProj);
+    $projecte->delete();
+   
+    DB::commit();
 
-        if ($participaExists) {
-            DB::table('PARTICIPA')->where('CodiProj', $CodiProj)->delete();
+        if ($result) {
+            return redirect()->route('projecte.delete')->with('success', 'Registro borrado exitosamente.');
+        } else {
+            DB::rollback();
+            return redirect()->route('projecte.delete')->with('error', 'No se encontró el registro.');
         }
-
-        DB::commit();
-
-        return redirect()->route('projecte.delete')->with('success', 'Proyecto eliminado correctamente.');
-    } catch (\Exception $e) {
-        DB::rollback();
-
-        return redirect()->back()->with('error', 'Error al eliminar el proyecto.');
-    }
+     
 }
   
 public function showUpdateForm()
