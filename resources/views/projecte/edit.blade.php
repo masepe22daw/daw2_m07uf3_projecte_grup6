@@ -1,3 +1,16 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Editar Projecte</title>
+</head>
+<style>
+        .content-container {
+            margin-left: 20px;
+        }
+    </style>
+<div class="content-container">
+<h1>Benvingut a l'interficie per eliminar Projectes</h1>
 <form method="POST" action="{{ route('projecte.update') }}">
     @csrf
     @method('PUT')
@@ -28,7 +41,7 @@
     </div>
 
     <div>
-        <button type="submit">Actualizar</button>
+        <button class="btn btn-primary" type="submit">Actualizar</button>
     </div>
 </form>
 
@@ -39,7 +52,9 @@
 @endif
 
 <div>
-    <a href="{{ route('projecte.index') }}" class="btn btn-secondary">
-        <button>Volver</button>
+    <a href="{{ route('projecte.index') }}" >
+        <button class="btn btn-secondary">Volver</button>
     </a>
 </div>
+
+    </div>
