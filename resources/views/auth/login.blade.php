@@ -8,9 +8,11 @@
 </head>
 <body>
     <div class="container">
+        <br>
         <div class="card">
             <div class="card-body">
-
+                <br>
+                <h1>Benvingut al LOGIN</h1>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 

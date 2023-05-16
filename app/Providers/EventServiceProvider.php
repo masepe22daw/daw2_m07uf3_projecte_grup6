@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Support\Facades\Auth;
 
 
 class EventServiceProvider extends ServiceProvider
