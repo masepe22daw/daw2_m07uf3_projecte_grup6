@@ -14,9 +14,9 @@
 <form method="POST" action="{{ route('usuaris.search') }}" class="form">
     @csrf
     <div class="form-group">
-        <label for="id">ID del usuario que deseas buscar:</label>
-        <input type="text" name="id" id="id" class="form-control" autocomplete="off">
-    </div>
+    <label for="email">Correu electrònic del usuari que desitges buscar:</label>
+    <input type="text" name="email" id="email" class="form-control" autocomplete="off">
+</div><br>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Buscar</button>
     </div>

@@ -101,17 +101,21 @@ public function showUpdateForm()
     {
         if ($request->isMethod('post')) {
             $request->validate([
-                'id' => 'required',
+                'email' => 'required|email',
             ]);
-
+    
             try {
-                $id = $request->input('id');
-
-                $usuari = User::findOrFail($id);
-
-                return view('usuaris.search', compact('usuari'));
+                $email = $request->input('email');
+    
+                $usuari = DB::table('users')->where('email', $email)->first();
+    
+                if ($usuari) {
+                    return view('usuaris.search', compact('usuari'));
+                } else {
+                    return view('usuaris.search')->with('error', 'No se encontró ningún usuario con el correo electrónico proporcionado.');
+                }
             } catch (\Exception $e) {
-                return view('usuaris.search')->with('error', 'No se encontró ningún usuari con el id proporcionado.');
+                return view('usuaris.search')->with('error', 'Ocurrió un error al buscar el usuario.');
             }
         } else {
             return view('usuaris.search');
