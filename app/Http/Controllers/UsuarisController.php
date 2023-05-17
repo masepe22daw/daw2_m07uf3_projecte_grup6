@@ -54,10 +54,12 @@ public function showDeleteForm()
 public function destroy(Request $request)
 {
     $request->validate([
-        'user_id' => 'required',
+        'email' => 'required|email',
     ]);
 
-    $user = User::find($request->input('user_id'));
+    $email = $request->input('email');
+
+    $user = User::where('email', $email)->first();
 
     if ($user) {
         $user->delete();
@@ -66,6 +68,7 @@ public function destroy(Request $request)
         return redirect()->route('usuaris.delete')->with('error', 'No se encontró el usuario.');
     }
 }
+
   
 
 public function showUpdateForm()
@@ -74,27 +77,29 @@ public function showUpdateForm()
     }
 
     public function update(Request $request)
-    {
-        $request->validate([
-            'user_id' => 'required',
-            'campo' => 'required',
-            'value' => 'required',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email',
+        'campo' => 'required',
+        'value' => 'required',
+    ]);
 
-        $user = User::find($request->input('user_id'));
+    $email = $request->input('email');
+    $campo = $request->input('campo');
+    $value = $request->input('value');
 
-        if ($user) {
-            $campo = $request->input('campo');
-            $value = $request->input('value');
+    $user = User::where('email', $email)->first();
 
-            $user->$campo = $value;
-            $user->save();
+    if ($user) {
+        $user->$campo = $value;
+        $user->save();
 
-            return redirect()->route('usuaris.edit')->with('success', 'Usuario actualizado exitosamente.');
-        } else {
-            return redirect()->route('usuaris.edit')->with('error', 'No se encontró el usuario.');
-        }
+        return redirect()->route('usuaris.edit')->with('success', 'Usuario actualizado exitosamente.');
+    } else {
+        return redirect()->route('usuaris.edit')->with('error', 'No se encontró el usuario.');
     }
+}
+
 
 
     public function search(Request $request)

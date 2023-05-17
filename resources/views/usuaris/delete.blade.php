@@ -15,9 +15,10 @@
     @csrf
     @method('DELETE')
     <div class="mb-3">
-        <label for="user_id" class="form-label">ID de Usuario:</label>
-        <input type="text" name="user_id" id="user_id" class="form-control" required>
-    </div>
+    <label for="email" class="form-label">Correo electrónico del usuario:</label>
+    <input type="text" name="email" id="email" class="form-control" required>
+</div>
+
 
     <div class="mb-3">
         <button type="submit" class="btn btn-danger">Eliminar Usuario</button>
